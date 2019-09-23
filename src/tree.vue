@@ -1,7 +1,7 @@
 <template>
   <div>
     <p class="alpaca-p" v-for="(item, index) in merge" :key="index" :style="getStyle" :class="getDiff(item, index)">
-      <span class="alpaca-line">{{ item.line }}</span>
+      <!--<span class="alpaca-line">{{ item.line }}</span>-->
       <slot v-if="isObject(item.type)">
         <p @click="toggle(item)" class="alpaca-f">
           <span v-if="needKey" class="alpaca-k">"{{ item.key }}": </span>
@@ -25,7 +25,7 @@
       </slot>
       <slot v-else-if="isArray(item.type)">
         <p @click="toggle(item)" class="alpaca-f">
-          <span v-if="needKey" class="alpaca-k">"{{ item.key }}": </span>
+          <span v-if="needKey" class="alpaca-k">{{ item.key }} - </span>
           <span class="alpaca-k">[</span>
           <span class="alpaca-k" v-show="!item.show">... ] {{ comma(index) }}</span>
         </p>
@@ -45,7 +45,7 @@
        </p>
       </slot>
       <slot v-else>
-        <span v-if="needKey" class="alpaca-k">"{{ item.key }}": </span>
+        <span v-if="needKey" class="alpaca-k">{{ item.key }} - </span>
         <span :class="getClass(item.type)">{{ item.value }}{{ comma(index) }}</span>
       </slot>
     </p>
@@ -158,13 +158,13 @@ export default {
       let oldData = this.oldData
       let newData = this.newData
       if (this.objectType) {
-        // 对象，对比Key
+        //Objecto
         if (oldData.hasOwnProperty(item.key) && newData.hasOwnProperty(item.key)) {
-          // 类型不同
+          // Tipos Diferentes
           if (check.type(oldData[item.key]) !== check.type(newData[item.key])) {
             return 'alpaca-upd'
           } else {
-            // 类型相同
+            // Mesmo tipo
             if (!check.isArray(oldData[item.key]) && !check.isObject(oldData[item.key])) {
               if (oldData[item.key] !== newData[item.key]) {
                 return 'alpaca-upd'
@@ -178,16 +178,16 @@ export default {
         if (!oldData.hasOwnProperty(item.key) && newData.hasOwnProperty(item.key)) {
           return 'alpaca-add'
         }
-        // 无变化
+        // Sem alterações
         return 'alpaca-hide'
       }
       // 数组，对比下标
       if (oldData.hasOwnProperty(item.key) && newData.hasOwnProperty(item.key)) {
-        // 类型不同
+        // Tipos Diferentes
         if (check.type(oldData[item.key]) !== check.type(newData[item.key])) {
           return 'alpaca-upd'
         } else {
-          // 类型相同
+          // Mesmo tipo
           if (!check.isObject(oldData[item.key]) && !check.isArray(oldData[item.key])) {
             if (oldData[item.key] !== newData[item.key]) {
               return 'alpaca-upd'
@@ -201,8 +201,8 @@ export default {
       if (!oldData.hasOwnProperty(item.key) && newData.hasOwnProperty(item.key)) {
         return 'alpaca-add'
       }
-      // 无改变
-      return ''
+      // Sem alterações
+      return 'alpaca-hide'
     }
   }
 }
