@@ -2,16 +2,16 @@
   <div class="alpaca-json">
     <slot v-if="isTheSameType">
       <p v-if="isObject" @click="parent=!parent" class="alpaca-f">
-        { <span v-show="!parent">... }</span>
+        <span v-show="!parent"></span>
       </p>
       <p v-else @click="parent=!parent" class="alpaca-f">
         [ <span v-show="!parent">... ]</span>
       </p>
       <tree v-show="parent" :oldData="oldData" :newData="newData" :merge="merge" :needKey="isObject" :objectType="isObject"></tree>
-      <p v-if="isObject" v-show="parent">}</p>
+      <p v-if="isObject" v-show="parent"></p>
       <p v-else v-show="parent">]</p>
     </slot>
-    <slot v-else>类型不一致,无法对比</slot>
+    <slot v-else>Tipos inconstantes, impossível comparar</slot>
   </div>
 </template>
 
