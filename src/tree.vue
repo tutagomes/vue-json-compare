@@ -179,7 +179,7 @@ export default {
           return 'alpaca-add'
         }
         // 无变化
-        return ''
+        return 'alpaca-hide'
       }
       // 数组，对比下标
       if (oldData.hasOwnProperty(item.key) && newData.hasOwnProperty(item.key)) {
